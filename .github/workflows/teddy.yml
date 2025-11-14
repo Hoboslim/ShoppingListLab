@@ -44,15 +44,15 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "Commit message: ${{ github.message }}"
+          echo "Commit message: ${{ github.event.head_commit.message }}"
           echo "Run number: ${{ github.event.head_commit.addded }}"
 
       - name: Runs only if manual 
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Actor: ${{ github.actor }}"
-         
-          echo "Deploying build:${{ inputs.build_id }} to target:${{ inputs.deploy_target }}"
+          echo "Deploying build: ${{ inputs.build_id }}"
+
           
 
 
