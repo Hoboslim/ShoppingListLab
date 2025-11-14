@@ -26,15 +26,10 @@ jobs:
 
       - name: Build Solution
         run: dotnet build
-
-      - name: Runs only if previous step succeeded
-        if: success()
-        run: echo "Previous step succeeded"
         
-      - name: Run Test
+      - name: Run Test 
+        if: success()
         run: dotnet test
-
-
 
       - name: Runs only if pr
         if: github.event_name == 'pull_request'
@@ -48,13 +43,13 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "Commit message: ${{github.message}}"
+          echo "Commit message: ${{ github.message }}"
 
       - name: Runs only if manual 
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "inputs: ${{github.inputs}}"
+          echo "inputs: ${{ github.input }}"
           
 
 
