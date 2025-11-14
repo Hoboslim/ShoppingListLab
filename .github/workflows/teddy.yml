@@ -49,7 +49,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "inputs: ${{ github.input }}"
+          echo "inputs: ${{ github.event.inputs.levels }}"
           
 
 
