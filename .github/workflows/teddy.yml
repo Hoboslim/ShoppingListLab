@@ -28,7 +28,7 @@ jobs:
         run: dotnet build ShoppingListLab.sln
         
       - name: Run Test
-        run: dotnet tests
+        run: dotnet test
         
   
   
