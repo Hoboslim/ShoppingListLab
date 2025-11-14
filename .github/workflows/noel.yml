@@ -25,26 +25,26 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
 
-      - name: Build project
-        run: dotnet build
 
       - name: PR Test
         if: ${{ github.event_name == 'pull_request' }}
         run: |
-          echo "PR Number: ${{ github.event.number }}"
-          echo "Author: ${{ github.actor }}"
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Source/Target Branch: ${{ github.ref_name }}"
 
       - name: Push Test
         if: ${{ github.event_name == 'push' }}
         run: |
           echo "Commit Message: ${{ github.event.head_commit.message }}"
-          echo "Author: ${{ github.actor }}"
+          echo "Author: ${{ github.event.push.user.login }}"
           echo "Changed files: ${{ github.event.head_commit.added }}"
 
       - name: Workflow Dispatch Test
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo "Started by: ${{ github.actor }}"
-          
+          echo "Input: ${{ github.inputs }}"
 
+      - name: Build project
+        run: dotnet build
