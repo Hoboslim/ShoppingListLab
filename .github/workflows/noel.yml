@@ -20,12 +20,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install NET.9
-      - uses: actions/setup-dotnet@v5.0.x
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
         with:
-          version: ${{matrix.dotnet-version }}
+          dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Build project
         run: dotnet build
 
-          
+      - name: PR Test
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          echo "PR Number: ${{ github.event.number }}"
+          echo "Author: ${{ github.actor }}"
+          echo "Source/Target Branch: ${{ github.ref_name }}"
+
+      - name: Push Test
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "Author: ${{ github.actor }}"
+          echo "Changed files: ${{ github.event.head_commit.added }}"
+
+      - name: Workflow Dispatch Test
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo "Started by: ${{ github.actor }}"
+          echo "Inputs: ${{ 
+
