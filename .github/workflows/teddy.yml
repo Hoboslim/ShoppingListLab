@@ -3,12 +3,33 @@
 name: testrunner
 
 on:
-  
   workflow_dispatch:
-  
   push:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [9.0, 8.0]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
     
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5.0.0
+        with:
+          dotnet-version: ${{ matrix.version }}
+
+      - name: Build Solution
+        run: dotnet build ShoppingListLab.sln
+        
+      - name: Run Test
+        run: dotnet tests
+        
+  
+  
+      
