@@ -25,7 +25,7 @@ jobs:
           dotnet-version: ${{ matrix.version }}
 
       - name: Build Solution
-        run: dotnet build ShoppingListLab.sln
+        run: dotnet build
         
       - name: Run Test
         run: dotnet test
