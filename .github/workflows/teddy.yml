@@ -51,7 +51,10 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "Deploying build: ${{ inputs.build_id }}"
+
+      - name: Deploy build to target
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Deploying build:${{ inputs.build_id }} to target:${{ inputs.deploy_target }}"
 
           
 
