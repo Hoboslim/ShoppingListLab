@@ -38,18 +38,20 @@ jobs:
           echo "Triggered by: ${{ github.event_name }}"
           echo "Actor: ${{ github.actor }}"
           echo "Run number: ${{ github.run_number }}"
+          github.event.head_commit.addded
 
       - name: Runs only if push
         if: github.event_name == 'push'
         run: |
           echo "Actor: ${{ github.actor }}"
           echo "Commit message: ${{ github.message }}"
+          echo "Run number: ${{ github.event.head_commit.addded }}"
 
       - name: Runs only if manual 
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "inputs: ${{ github.event.inputs.levels }}"
+          echo "inputs: ${{ github.event.inputs.id }}"
           
 
 
