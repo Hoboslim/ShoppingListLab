@@ -26,10 +26,41 @@ jobs:
 
       - name: Build Solution
         run: dotnet build
+
+      - name: Runs only if previous step succeeded
+        if: success()
+        run: echo "Previous step succeeded"
         
       - name: Run Test
         run: dotnet test
-        
-  
+
+
+
+      - name: Runs only if pr
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Run number: ${{ github.run_number }}"
+
+      - name: Runs only if push
+        if: github.event_name == 'push'
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Commit message: ${{github.message}}"
+
+      - name: Runs only if manual 
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "inputs: ${{github.inputs}}"
+          
+
+
+          //Vid PR: visa PR number, author, source/target branch
+          //Vid push: visa commit message, author, changed files (om möjligt)
+          //Vid manuell: visa vem som startade och med vilka inputs
+
   
       
